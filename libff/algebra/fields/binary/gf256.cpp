@@ -2,8 +2,7 @@
 
 #define __STDC_FORMAT_MACROS
 #include <inttypes.h>
-
-#include <sodium/randombytes.h>
+#include <sys/random.h>
 
 #include "libff/algebra/field_utils/algorithms.hpp"
 #include "libff/algebra/fields/binary/gf256.hpp"
@@ -366,7 +365,7 @@ gf256 gf256::sqrt() const
 
 void gf256::randomize()
 {
-    randombytes_buf(&this->value_, 256/8);
+  getrandom(&this->value_, 256/8, 0);
 }
 
 void gf256::clear()

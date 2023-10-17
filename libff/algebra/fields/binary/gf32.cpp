@@ -2,8 +2,7 @@
 
 #define __STDC_FORMAT_MACROS
 #include <inttypes.h>
-
-#include <sodium/randombytes.h>
+#include <sys/random.h>
 
 #include "libff/algebra/field_utils/algorithms.hpp"
 #include "libff/algebra/fields/binary/gf32.hpp"
@@ -204,7 +203,7 @@ gf32 gf32::sqrt() const
 
 void gf32::randomize()
 {
-    randombytes_buf(&this->value_, 32/8);
+  getrandom(&this->value_, 32/8, 0);
 }
 
 void gf32::clear()
